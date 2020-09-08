@@ -1,0 +1,6 @@
+'prune_min-correct', (0, 70)
+'compose-all-correct', (512, 70)
+'insert-correct', (1024, 70)
+'switch-correct', (1536, 70)
+'num_splits-correct', (2048, 70)
+'has-cycle?-correct', (2560, 70)

@@ -1,0 +1,6 @@
+'obedience-correct', (0, 70)
+'smallest-int-correct', (512, 70)
+'matchmaker-correct', (1024, 70)
+'smallest-int-having-correct', (1536, 70)
+'lets-count-correct', (2048, 70)
+'partial-sums-correct', (2560, 70)

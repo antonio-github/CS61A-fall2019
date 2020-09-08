@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+<!-- Mirrored from cs61a.org/hw/sol-hw06/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 05 Jan 2020 19:29:54 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta name="description" content ="CS 61A: Structure and Interpretation of Computer Programs" />
+    <meta name="keywords" content ="CS 61A, Computer Science, CS, 61A, Programming, John DeNero, Berkeley, EECS" />
+    <meta name="author" content ="John DeNero" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width">
+
+    <script src="../../../cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="../../../cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="../../../cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="../../assets/js/dark-mode.js"></script>
+    <link rel="stylesheet" href="../../../cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../../fonts.googleapis.com/css26d9.css?family=Inconsolata|Roboto:300,400,500|Work+Sans:400,700">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <link rel="stylesheet" href="../../assets/css/mono-blue.css">
+    <link rel="icon" href="../../assets/images/favicon.ico">
+
+    
+
+<link rel="stylesheet" type="text/css" href="../../assets/css/hw.css">
+
+
+    <title>
+Homework 6 Solutions | CS 61A Fall 2019
+</title>
+  </head>
+
+  <body id="index" class="home">
+    <nav class="navbar navbar-default navbar-static-top">
+      <div class="container noselect">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-section">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../../index.html">
+            <img style="max-width:60px; margin-top: -20px;" class="logo" src="../../assets/images/logo.png"/>
+          </a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="navbar-collapse-section">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="../../weekly.html">Weekly Schedule</a></li>
+            <li><a href="../../office-hours.html">Office Hours</a></li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Staff
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a href="../../instructor.html">Instructors</a></li>
+                <li><a href="../../TAs.html">TAs</a></li>
+                <li><a href="../../tutors.html">Tutors</a></li>
+                <li><a href="../../academic-interns.html">Academic Interns</a></li>
+              </ul>
+            </li>
+            <li><a href="../../resources.html">Resources</a></li>
+            <li><a href="../../articles/about.html">Syllabus</a></li>
+            <li><a href="https://piazza.com/berkeley/fall2019/cs61a" target="_blank">Piazza</a></li>
+            <li><a href="../../extra.html">Extra</a></li>
+            <!-- <li><a href="https://scheme.cs61a.org">Scheme</a></li> -->
+            <!-- <li><a href="https://sql.cs61a.org">SQL</a></li> -->
+            <li><a href="https://code.cs61a.org/">Code</a></li>
+            <li><a href="http://tutor.cs61a.org/">Tutor</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <main id="content" class="container">
+      
+<div class='row'>
+  <div class='col-md-9'>
+    <header>
+      <h1>
+        
+Homework 6 Solutions
+
+        
+        
+        <ul class="inline-block list-inline">
+          <li><a href="hw06.html" class="label label-outline">hw06.zip</a></li>
+        </ul>
+        
+        
+      </h1>
+    </header>
+    
+<h2>Solution Files</h2>
+
+
+    
+<h1 id="scheme-editor">Scheme Editor</h1>
+
+
+
+<h2 id="how-to-launch">How to launch</h2>
+
+
+<p>In your <code>hw06</code> folder you will find a new editor. To run this editor, run <code>python3 editor</code>. This should pop up a window in your browser; if it does not, please navigate to <a href="localhost:31415">localhost:31415</a> and you should see it.</p>
+
+<p>Make sure to run <code>python3 ok</code> in a separate tab or window so that the editor keeps running.</p>
+
+
+<h2 id="features">Features</h2>
+
+
+<p>The <code>hw06.scm</code> file should already be open. You can edit this file and then run <code>Run</code> to run the code and get an interactive terminal or <code>Test</code> to run the <code>ok</code> tests.</p>
+
+<p><code>Environments</code> will help you diagram your code, and <code>Debug</code> works with environments so you can see where you are in it. We encourage you to try out all these features.</p>
+
+<p><code>Reformat</code> is incredibly useful for determining whether you have parenthesis based bugs in your code. You should be able to see after formatting if your code looks weird where the issue is.</p>
+
+<blockquote><p>By default, the interpreter uses Lisp-style formatting, where the parens are all put on the end of the last line</p>
+
+<pre><code>(define (f x)
+    (if (&gt; x 0)
+        x
+        (&#x2d; x)))</code></pre>
+
+<p>However, if you would prefer the close parens to be on their own lines as so</p>
+
+<pre><code>(define (f x)
+    (if (&gt; x 0)
+        x
+        (&#x2d; x)
+    )
+)</code></pre>
+
+<p>you can go to Settings and select the second option.</p></blockquote>
+
+
+<h2 id="warning">Warning</h2>
+
+
+<p><strong>The editor will neither back up nor submit on your behalf.</strong> You still need to run <code>python ok &#x2d;u</code> to unlock cases from the terminal as well as <code>python ok &#x2d;&#x2d;submit</code>.</p>
+
+
+<h2 id="reporting-bugs">Reporting bugs</h2>
+
+
+<p>This is relatively new software! While we have tested it extensively, it probably has bugs. Please let us know on piazza if there is an issue.</p>
+
+
+<h1 id="questions">Questions</h1>
+
+
+<h3 class="question" id="q1">Q1: Survey</h3>
+
+<p>Please fill out the survey at <a href="https://forms.gle/UXXFLFuKJmDq1KsU9">this link</a>
+and fill in <code>hw06.py</code> with the token. The link might not work if you are logged
+into some google account other than your Berkeley account, so either log out from all
+other accounts or open the link in a private/incognito window and sign in to
+your Berkeley account there.</p>
+
+<p>To check that you got the correct token run</p>
+
+<p>Use Ok to test your code:</p><pre><code class="nohighlight">python3 ok -q survey</code></pre>
+
+
+<h2 id="scheme">Scheme</h2>
+
+
+<h3 class="question" id="q2">Q2: Thane of Cadr</h3>
+
+<p>Define the procedures <code>cadr</code> and <code>caddr</code>, which return the second
+and third elements of a list, respectively:</p>
+
+<solution>
+
+<pre><code>(define (cddr s)
+  (cdr (cdr s)))
+
+(define (cadr s)
+<div class="sol-highlight">  (car (cdr s))</div>)
+
+(define (caddr s)
+<div class="sol-highlight">  (car (cddr s))</div>)</code></pre>
+
+</solution>
+
+<div class="sol-highlight">
+
+<p>Following the given example of <code>cddr</code>, defining <code>cadr</code> and <code>caddr</code> should be
+fairly straightforward.</p>
+
+<p>Just for fun, if this were a Python linked list question instead, the solution
+might look something like this:</p>
+
+<pre><code>cadr = lambda l: l.rest.first
+caddr = lambda l: l.rest.rest.first</code></pre>
+
+</div>
+
+<p>Use Ok to unlock and test your code:</p><pre><code class="nohighlight">python3 ok -q cadr-caddr -u
+python3 ok -q cadr-caddr</code></pre>
+
+<h3 class="question" id="q3">Q3: Sign</h3>
+
+<p>Using a <code>cond</code> expression, define a procedure <code>sign</code> that takes in one
+parameter <code>x</code> and returns -1 if <code>x</code> is negative, 0 if <code>x</code> is zero, and 1 if <code>x</code>
+is positive.</p>
+
+<solution>
+
+<pre><code>(define (sign x)
+<div class="sol-highlight">  (cond ((&gt; x 0) 1)
+        ((= x 0) 0)
+        ((&lt; x 0) &#x2d;1))</div>)</code></pre>
+
+</solution>
+
+<div class="sol-highlight">
+
+<p>The order of the cases doesn't really matter, and we could also use an <code>else</code>
+clause in the place of one of the conditions.</p>
+
+<p>The condition looks something like this in Python:</p>
+
+<pre><code>if x &gt; 0:
+    return 1
+elif x == 0:
+    return 0
+elif x &lt; 0:
+    return &#x2d;1</code></pre>
+
+<p>Opinions differ on which is better, but hopefully you can see that the Scheme
+<code>cond</code> is quite readable and compact once you get used to it.</p>
+
+</div>
+
+<p>Use Ok to unlock and test your code:</p><pre><code class="nohighlight">python3 ok -q sign -u
+python3 ok -q sign</code></pre>
+
+<h3 class="question" id="q4">Q4: Pow</h3>
+
+<p>Implement a procedure <code>pow</code> for raising the number <code>b</code> to the power of a
+nonnegative integer <code>n</code> for which the number of operations grows logarithmically
+(as opposed to linearly).</p>
+
+<blockquote><p><em>Hint:</em> Consider the following observations:</p>
+
+<ol>
+  <li>b<sup>2k</sup> = (b<sup>k</sup>)<sup>2</sup></li>
+  <li>b<sup>2k+1</sup> = b(b<sup>k</sup>)<sup>2</sup></li>
+</ol>
+
+<p>You may use the built-in predicates <code>even?</code> and <code>odd?</code>.</p></blockquote>
+
+<solution>
+
+<pre><code>(define (square x) (* x x))
+
+(define (pow b n)
+<div class="sol-highlight">  (cond ((= n 0) 1)
+        ((even? n) (square (pow b (/ n 2))))
+        (else (* b (pow b (&#x2d; n 1)))))</div>)</code></pre>
+
+</solution>
+
+<p>Use Ok to unlock and test your code:</p><pre><code class="nohighlight">python3 ok -q pow -u
+python3 ok -q pow</code></pre>
+
+<div class="sol-highlight">
+
+<p>The <code>else</code> clause shows the basic recursive version of <code>pow</code> that we've seen
+before in class.</p>
+
+<p>We save time in computation by avoiding an extra n/2 multiplications of the
+base. Instead, we just square the result of <code>b^(n/2)</code>.</p>
+
+<p>Video walkthrough: <a href="https://youtu.be/-yt2EOv9ZLU">https://youtu.be/-yt2EOv9ZLU</a></p>
+
+</div>
+
+<h3 class="question" id="q5">Q5: Unique</h3>
+
+<p>Implement <code>unique</code>, which takes in a list <code>s</code> and returns a new list containing
+the same elements as <code>s</code> with duplicates removed.</p>
+
+<pre><code>scm&gt; (unique &#x27;(1 2 1 3 2 3 1))
+(1 2 3)
+scm&gt; (unique &#x27;(a b c a a b b c))
+(a b c)</code></pre>
+
+<blockquote><p>Hint: you may find it useful to use the built-in <code>filter</code> procedure.
+See the <a href="../../articles/scheme-builtins.html">built-in procedure reference</a> for 
+more information.</p></blockquote>
+
+<solution>
+
+<pre><code>(define (unique s)
+<div class="sol-highlight">  (if (null? s) nil
+      (cons (car s)
+            (unique (filter (lambda (x) (not (eq? (car s) x))) (cdr s)))))</div>)</code></pre>
+
+</solution>
+
+<p>Use Ok to test your code:</p><pre><code class="nohighlight">python3 ok -q unique</code></pre>
+
+  </div>
+
+  <div class='col-md-3 sticky'>
+    <nav class='hidden-print hidden-sm hidden-xs sidebar'>
+      <ul>
+  <li><a href="#scheme-editor">Scheme Editor</a></li>
+  <ul>
+    <li><a href="#how-to-launch">How to launch</a></li>
+    <li><a href="#features">Features</a></li>
+    <li><a href="#warning">Warning</a></li>
+    <li><a href="#reporting-bugs">Reporting bugs</a></li>
+  </ul>
+  <li><a href="#questions">Questions</a></li>
+  <ul>
+    <li><a href="#q1">Q1: Survey</a></li>
+  </ul>
+  <ul>
+    <li><a href="#scheme">Scheme</a></li>
+    <ul>
+      <li><a href="#q2">Q2: Thane of Cadr</a></li>
+      <li><a href="#q3">Q3: Sign</a></li>
+      <li><a href="#q4">Q4: Pow</a></li>
+      <li><a href="#q5">Q5: Unique</a></li>
+    </ul>
+  </ul>
+</ul>
+    </nav>
+  </div>
+</div>
+
+    </main>
+
+    <footer class="container">
+      <div class="row text-center">
+        <div class="col col-sm-4">
+          <h3><a href="../../index.html">CS 61A</a></h3>
+          <ul class="nav nav-pills nav-stacked">
+            <li><a href="../../weekly.html">Weekly Schedule</a></li>
+            <li><a href="../../office-hours.html">Office Hours</a></li>
+            <li><a href="../../staff.html">Staff</a></li>
+          </ul>
+        </div>
+        <div class="col col-sm-4">
+          <h3><a href="../../resources.html">Resources</a></h3>
+          <ul class="nav nav-pills nav-stacked">
+            <li><a href="../../articles/studying.html">Studying Guide</a></li>
+            <li><a href="../../articles/debugging.html">Debugging Guide</a></li>
+            <li><a href="../../articles/composition.html">Composition Guide</a></li>
+          </ul>
+        </div>
+        <div class="col col-sm-4">
+          <h3><a href="../../articles/about.html">Policies</a></h3>
+          <ul class="nav nav-pills nav-stacked">
+            <li><a href="../../articles/about.html#assignments">Assignments</a></li>
+            <li><a href="../../articles/about.html#exams">Exams</a></li>
+            <li><a href="../../articles/about.html#grading">Grading</a></li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+
+    
+
+<script>
+  $('.sidebar ul').addClass('nav nav-stacked noselect');
+  $('body').scrollspy({
+    target: '.sidebar',
+    offset: 40
+  });
+
+  function goToId(id) {
+    var target = $(id);
+    console.log(target);
+    target.parent().show();
+    $('html,body').animate({
+      scrollTop: target.offset().top,
+    }, 100);
+    $("body").scrollspy('refresh');
+  }
+
+  if (location.hash) {
+    setTimeout(function() {
+      // window.scrollTo(0, 0);
+      if (location.hash) {
+        goToId(location.hash);
+      }
+    }, 1);
+  }
+
+  $("a").click(function(event) {
+    event.preventDefault();
+    var urlBeforeHashRegEx = new RegExp("^"+window.location.href.split("#")[0]);
+    if (/^#/.test(this.hash) && urlBeforeHashRegEx.test(this.href)) {
+      goToId(this.hash);
+      document.location.hash = this.hash;
+    } else {
+      window.open(this.href);
+    }
+  });
+</script>
+
+  </body>
+
+<!-- Mirrored from cs61a.org/hw/sol-hw06/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 05 Jan 2020 19:29:55 GMT -->
+</html>

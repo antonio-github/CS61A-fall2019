@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+<!-- Mirrored from cs61a.org/hw/sol-hw03/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 05 Jan 2020 19:29:06 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta name="description" content ="CS 61A: Structure and Interpretation of Computer Programs" />
+    <meta name="keywords" content ="CS 61A, Computer Science, CS, 61A, Programming, John DeNero, Berkeley, EECS" />
+    <meta name="author" content ="John DeNero" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width">
+
+    <script src="../../../cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="../../../cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="../../../cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="../../assets/js/dark-mode.js"></script>
+    <link rel="stylesheet" href="../../../cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../../fonts.googleapis.com/css26d9.css?family=Inconsolata|Roboto:300,400,500|Work+Sans:400,700">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <link rel="stylesheet" href="../../assets/css/mono-blue.css">
+    <link rel="icon" href="../../assets/images/favicon.ico">
+
+    
+
+<link rel="stylesheet" type="text/css" href="../../assets/css/hw.css">
+
+
+    <title>
+Homework 3 Solutions | CS 61A Fall 2019
+</title>
+  </head>
+
+  <body id="index" class="home">
+    <nav class="navbar navbar-default navbar-static-top">
+      <div class="container noselect">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-section">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../../index.html">
+            <img style="max-width:60px; margin-top: -20px;" class="logo" src="../../assets/images/logo.png"/>
+          </a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="navbar-collapse-section">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="../../weekly.html">Weekly Schedule</a></li>
+            <li><a href="../../office-hours.html">Office Hours</a></li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Staff
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a href="../../instructor.html">Instructors</a></li>
+                <li><a href="../../TAs.html">TAs</a></li>
+                <li><a href="../../tutors.html">Tutors</a></li>
+                <li><a href="../../academic-interns.html">Academic Interns</a></li>
+              </ul>
+            </li>
+            <li><a href="../../resources.html">Resources</a></li>
+            <li><a href="../../articles/about.html">Syllabus</a></li>
+            <li><a href="https://piazza.com/berkeley/fall2019/cs61a" target="_blank">Piazza</a></li>
+            <li><a href="../../extra.html">Extra</a></li>
+            <!-- <li><a href="https://scheme.cs61a.org">Scheme</a></li> -->
+            <!-- <li><a href="https://sql.cs61a.org">SQL</a></li> -->
+            <li><a href="https://code.cs61a.org/">Code</a></li>
+            <li><a href="http://tutor.cs61a.org/">Tutor</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <main id="content" class="container">
+      
+<div class='row'>
+  <div class='col-md-9'>
+    <header>
+      <h1>
+        
+Homework 3 Solutions
+
+        
+        
+        <ul class="inline-block list-inline">
+          <li><a href="hw03.html" class="label label-outline">hw03.zip</a></li>
+        </ul>
+        
+        
+      </h1>
+    </header>
+    
+<h2>Solution Files</h2>
+<p>You can find solutions for all questions in <a href="hw03.py">hw03.py</a>.</p>
+
+    
+<h2 id="required-questions">Required questions</h2>
+
+
+<h3 class="question" id="q1">Q1: Num Sevens</h3>
+
+<p>Write a recursive function <code>num_sevens</code> that takes a positive integer <code>n</code> and
+returns the number of times the digit 7 appears in <code>n</code>.
+<br/>
+<em>Use recursion - the tests will fail if you use any assignment statements.</em></p>
+
+<solution>
+
+<pre><code>def num_sevens(n):
+    &quot;&quot;&quot;Returns the number of times 7 appears as a digit of n.
+
+    &gt;&gt;&gt; num_sevens(3)
+    0
+    &gt;&gt;&gt; num_sevens(7)
+    1
+    &gt;&gt;&gt; num_sevens(7777777)
+    7
+    &gt;&gt;&gt; num_sevens(2637)
+    1
+    &gt;&gt;&gt; num_sevens(76370)
+    2
+    &gt;&gt;&gt; num_sevens(12345)
+    0
+    &gt;&gt;&gt; from construct_check import check
+    &gt;&gt;&gt; # ban all assignment statements
+    &gt;&gt;&gt; check(HW_SOURCE_FILE, &#x27;num_sevens&#x27;,
+    ...       [&#x27;Assign&#x27;, &#x27;AugAssign&#x27;])
+    True
+    &quot;&quot;&quot;
+<div class="sol-highlight">    if n % 10 == 7:
+        return 1 + num_sevens(n // 10)
+    elif n &lt; 10:
+        return 0
+    else:
+        return num_sevens(n // 10)</div></code></pre>
+
+</solution>
+
+<p>Use Ok to test your code:</p><pre><code class="nohighlight">python3 ok -q num_sevens</code></pre>
+
+<div class="sol-highlight">
+
+<p>The equivalent iterative version of this problem might look something like
+this:</p>
+
+<pre><code>total = 0
+while n &gt; 0:
+    if n % 10 == 7:
+        total = total + 1
+    n = n // 10
+return total</code></pre>
+
+<p>The main idea is that we check each digit for a seven. The recursive
+solution is similar, except that you depend on the recursive call to count the occurences
+of seven in the rest of the number. Then, you add that to the number of sevens you see
+in the current digit.</p>
+
+</div>
+
+<h3 class="question" id="q2">Q2: Ping-pong</h3>
+
+<p>The ping-pong sequence counts up starting from 1 and is always either counting
+up or counting down.  At element <code>k</code>, the direction switches if <code>k</code> is a
+multiple of 7 or contains the digit 7.  The first 30 elements of the ping-pong
+sequence are listed below, with direction swaps marked using brackets at the
+7th, 14th, 17th, 21st, 27th, and 28th elements:</p>
+
+<pre><code>1 2 3 4 5 6 [7] 6 5 4 3 2 1 [0] 1 2 [3] 2 1 0 [&#x2d;1] 0 1 2 3 4 [5] [4] 5 6</code></pre>
+
+<p>Implement a function <code>pingpong</code> that returns the nth element of the ping-pong
+sequence <em>without using any assignment statements</em>.</p>
+
+<p>You may use the function <code>num_sevens</code>, which you defined in the previous question.</p>
+
+<blockquote><p><em>Hint</em>: If you're stuck, first try implementing <code>pingpong</code> using assignment
+statements and a <code>while</code> statement. Then, to convert this into a recursive
+solution, write a helper function that has a parameter for each variable that
+changes values in the body of the while loop.</p></blockquote>
+
+<solution>
+
+<pre><code>def pingpong(n):
+    &quot;&quot;&quot;Return the nth element of the ping&#x2d;pong sequence.
+
+    &gt;&gt;&gt; pingpong(7)
+    7
+    &gt;&gt;&gt; pingpong(8)
+    6
+    &gt;&gt;&gt; pingpong(15)
+    1
+    &gt;&gt;&gt; pingpong(21)
+    &#x2d;1
+    &gt;&gt;&gt; pingpong(22)
+    0
+    &gt;&gt;&gt; pingpong(30)
+    6
+    &gt;&gt;&gt; pingpong(68)
+    2
+    &gt;&gt;&gt; pingpong(69)
+    1
+    &gt;&gt;&gt; pingpong(70)
+    0
+    &gt;&gt;&gt; pingpong(71)
+    1
+    &gt;&gt;&gt; pingpong(72)
+    0
+    &gt;&gt;&gt; pingpong(100)
+    2
+    &gt;&gt;&gt; from construct_check import check
+    &gt;&gt;&gt; # ban assignment statements
+    &gt;&gt;&gt; check(HW_SOURCE_FILE, &#x27;pingpong&#x27;, [&#x27;Assign&#x27;, &#x27;AugAssign&#x27;])
+    True
+    &quot;&quot;&quot;
+<div class="sol-highlight">    def helper(result, i, step):
+        if i == n:
+            return result
+        elif i % 7 == 0 or num_sevens(i) &gt; 0:
+            return helper(result &#x2d; step, i + 1, &#x2d;step)
+        else:
+            return helper(result + step, i + 1, step)
+    return helper(1, 1, 1)
+
+# Alternate solution 1
+def pingpong_next(x, i, step):
+    if i == n:
+        return x
+    return pingpong_next(x + step, i + 1, next_dir(step, i+1))
+
+def next_dir(step, i):
+    if i % 7 == 0 or num_sevens(i) &gt; 0:
+        return &#x2d;step
+    return step
+
+return pingpong_next(1, 1, 1)
+
+# Alternate solution 2
+def pingpong(n):
+    if n &lt;= 7:
+        return n
+    return direction(n) + pingpong(n&#x2d;1)
+
+def direction(n):
+    if n &lt; 7:
+        return 1
+    if (n&#x2d;1) % 7 == 0 or num_sevens(n&#x2d;1) &gt; 0:
+        return &#x2d;1 * direction(n&#x2d;1)
+    return direction(n&#x2d;1)</div></code></pre>
+
+</solution>
+
+<!--
+
+<pre><code>def has_seven(k):
+    &quot;&quot;&quot;Returns True if at least one of the digits of k is a 7, False otherwise.
+
+    &gt;&gt;&gt; has_seven(3)
+    False
+    &gt;&gt;&gt; has_seven(7)
+    True
+    &gt;&gt;&gt; has_seven(2734)
+    True
+    &gt;&gt;&gt; has_seven(2634)
+    False
+    &gt;&gt;&gt; has_seven(734)
+    True
+    &gt;&gt;&gt; has_seven(7777)
+    True
+    &quot;&quot;&quot;
+    if k % 10 == 7:
+        return True
+    elif k &lt; 10:
+        return False
+    else:
+        return has_seven(k // 10)</code></pre>
+
+-->
+
+<p>Use Ok to test your code:</p><pre><code class="nohighlight">python3 ok -q pingpong</code></pre>
+
+<div class="sol-highlight">
+
+<p>This is a fairly involved recursion problem, which we will first solve
+through iteration and then convert to a recursive solution.</p>
+
+<p>Note that at any given point in the sequence, we need to keep track of the
+current <em>value</em> of the sequence (this is the value that might be output)
+as well as the current <em>index</em> of the sequence (how many items we have
+seen so far, not actually output).</p>
+
+<p>For example, 14th element has <em>value</em> 0, but it's the 14th <em>index</em> in
+the sequence. We will refer to the value as <code>x</code> and the index as <code>i</code>. An
+iterative solution may look something like this:</p>
+
+<pre><code>def pingpong(n):
+    i = 1
+    x = 1
+    while i &lt; n:
+        x += 1
+        i += 1
+    return x</code></pre>
+
+<p>Hopefully, it is clear to you that this has a big problem. This doesn't
+account for changes in directions at all! It will work for the first seven
+values of the sequence, but then fail after that. To fix this, we can add
+in a check for direction, and then also keep track of the current
+direction to make our lives a bit easier (it's possible to compute the
+direction from scratch at each step, see the <code>direction</code> function in the
+alternate solution).</p>
+
+<pre><code>def pingpong(n):
+    i = 1
+    x = 1
+    is_up = True
+    while i &lt; n:
+        is_up = next_dir(...)
+        if is_up:
+            x += 1
+        else:
+            x &#x2d;= 1
+        i += 1
+    return x</code></pre>
+
+<p>All that's left to do is to write the <code>next_dir</code> function, which will take
+in the <em>current direction</em> and <em>index</em> and then tell us what direction to
+go in next (which could be the same direction):</p>
+
+<pre><code>def next_dir(is_up, i):
+    if i % 7 == 0 or num_sevens(i) &gt; 0:
+        return not is_up
+    return is_up</code></pre>
+
+<p>There's a tiny optimization we can make here. Instead of calculating an
+increment based on the value of <code>is_up</code>, we can make it directly store the
+direction of change into the variable (<code>next_dir</code> is also updated, see the
+solution for the new version):</p>
+
+<pre><code>def pingpong(n):
+    i = 1
+    x = 1
+    step = 1
+    while i &lt; n:
+        step = next_dir(step, i)
+        x += step
+        i += 1
+    return x</code></pre>
+
+<p>This will work, but it uses assignment. To convert it to an equivalent
+recursive version without assignment, make each local variable into a
+parameter of a new helper function, and then add an appropriate base case.
+Lastly, we seed the helper function with appropriate starting values by
+calling it with the values we had in the iterative version.</p>
+
+<p>You should be able to convince yourself that the version of <code>pingpong</code> in
+the solutions has the same logic as the iterative version of <code>pingpong</code>
+above.</p>
+
+<p>Video walkthrough: <a href="https://youtu.be/74gwPjgrN_k">https://youtu.be/74gwPjgrN_k</a></p>
+
+</div>
+<h3 class="question" id="q3">Q3: Count change</h3>
+
+<p>Once the machines take over, the denomination of every coin will be a power of
+two: 1-cent, 2-cent, 4-cent, 8-cent, 16-cent, etc. There will be no limit to
+how much a coin can be worth.</p>
+
+<p>Given a positive integer <code>amount</code>, a set of coins makes change for <code>amount</code> if
+the sum of the values of the coins is <code>amount</code>.  For example, the following
+sets make change for <code>7</code>:</p>
+
+<ul>
+  <li>7 1-cent coins</li>
+  <li>5 1-cent, 1 2-cent coins</li>
+  <li>3 1-cent, 2 2-cent coins</li>
+  <li>3 1-cent, 1 4-cent coins</li>
+  <li>1 1-cent, 3 2-cent coins</li>
+  <li>1 1-cent, 1 2-cent, 1 4-cent coins</li>
+</ul>
+
+<p>Thus, there are 6 ways to make change for <code>7</code>.  Write a recursive function
+<code>count_change</code> that takes a positive integer <code>amount</code> and returns the number of
+ways to make change for <code>amount</code> using these coins of the future.</p>
+
+<blockquote><p><em>Hint:</em> Refer the <a href="http://composingprograms.com/pages/17-recursive-functions.html#example-partitions">implementation</a> of <code>count_partitions</code> for an
+example of how to count the ways to sum up to an amount with smaller parts.
+If you need to keep track of more than one value across recursive calls,
+consider writing a helper function.</p></blockquote>
+
+<solution>
+
+<pre><code>def count_change(amount):
+    &quot;&quot;&quot;Return the number of ways to make change for amount.
+
+    &gt;&gt;&gt; count_change(7)
+    6
+    &gt;&gt;&gt; count_change(10)
+    14
+    &gt;&gt;&gt; count_change(20)
+    60
+    &gt;&gt;&gt; count_change(100)
+    9828
+    &gt;&gt;&gt; from construct_check import check
+    &gt;&gt;&gt; # ban iteration
+    &gt;&gt;&gt; check(HW_SOURCE_FILE, &#x27;count_change&#x27;, [&#x27;While&#x27;, &#x27;For&#x27;])
+    True
+    &quot;&quot;&quot;
+<div class="sol-highlight">    def constrained_count(amount, smallest_coin):
+        if amount == 0:
+            return 1
+        if smallest_coin &gt; amount:
+            return 0
+        without_coin = constrained_count(amount, smallest_coin * 2)
+        with_coin = constrained_count(amount &#x2d; smallest_coin, smallest_coin)
+        return without_coin + with_coin
+    return constrained_count(amount, 1)</div></code></pre>
+
+</solution>
+
+<p>Use Ok to test your code:</p><pre><code class="nohighlight">python3 ok -q count_change</code></pre>
+
+<div class="sol-highlight">
+
+<p>This is remarkably similar to the <code>count_partitions</code> problem, with a
+few minor differences:</p>
+
+<ul>
+  <li>A maximum partition size <code>m</code> is not given, so we need to create a helper
+  function that takes in two arguments and also create another helper function
+  to find the max coin.</li>
+  <li>Partition size is not linear, but rather multiples of two. To get the next
+  partition you need to divide by two instead of subtracting one.</li>
+</ul>
+
+<p>One other implementation detail here is that we enforce a <em>maximum</em> partition
+size, rather than a <em>minimum</em> coin. Many students attempted to
+start at 1 and work there way up. That will also work, but is less similar
+to <code>count_partitions</code>. As long as there is some ordering on the coins being enforced, we ensure we cover all the combinations of coins without any duplicates.</p>
+
+<p>See the walkthrough for a more thorough explanation and a visual of the
+recursive calls. Video walkthrough: <a href="https://youtu.be/EgZJPNFnoxM">https://youtu.be/EgZJPNFnoxM</a>.</p>
+
+</div>
+
+
+<h2 id="optional-list-question">Optional List Question</h2>
+
+
+<h3 class="question" id="q4">Q4: Flatten</h3>
+
+<p>Write a function <code>flatten</code> that takes a (possibly deep) list and "flattens" it.
+For example:</p>
+
+<pre><code>&gt;&gt;&gt; lst = [1, [[2], 3], 4, [5, 6]]
+&gt;&gt;&gt; flatten(lst)
+[1, 2, 3, 4, 5, 6]</code></pre>
+
+<p>Make sure your solution does not mutate the input list.</p>
+
+<p><em>Hint</em>: you can check if something is a list by using the built-in
+<code>type</code> function. For example,</p>
+
+<pre><code>&gt;&gt;&gt; type(3) == list
+False
+&gt;&gt;&gt; type([1, 2, 3]) == list
+True</code></pre>
+
+<solution>
+
+<pre><code>def flatten(lst):
+    &quot;&quot;&quot;Returns a flattened version of lst.
+
+    &gt;&gt;&gt; flatten([1, 2, 3])     # normal list
+    [1, 2, 3]
+    &gt;&gt;&gt; x = [1, [2, 3], 4]      # deep list
+    &gt;&gt;&gt; flatten(x)
+    [1, 2, 3, 4]
+    &gt;&gt;&gt; x # Ensure x is not mutated
+    [1, [2, 3], 4]
+    &gt;&gt;&gt; x = [[1, [1, 1]], 1, [1, 1]] # deep list
+    &gt;&gt;&gt; flatten(x)
+    [1, 1, 1, 1, 1, 1]
+    &gt;&gt;&gt; x
+    [[1, [1, 1]], 1, [1, 1]]
+    &quot;&quot;&quot;
+<div class="sol-highlight">    if not lst:
+        return []
+    elif type(lst[0]) == list:
+        return flatten(lst[0]) + flatten(lst[1:])
+    else:
+        return [lst[0]] + flatten(lst[1:])</div></code></pre>
+
+</solution>
+
+<p>Use Ok to test your code:</p><pre><code class="nohighlight">python3 ok -q flatten</code></pre>
+
+
+<h2 id="just-for-fun-questions">Just for Fun Questions</h2>
+
+
+<blockquote><p>These questions are pretty much out of scope for 61A but they are fun extensions
+of the course material. Attempting them out might solidify your understanding!</p></blockquote>
+
+<h3 class="question" id="q5">Q5: Towers of Hanoi</h3>
+
+<p>A classic puzzle called the Towers of Hanoi is a game that consists of three
+rods, and a number of disks of different sizes which can slide onto any rod.
+The puzzle starts with <code>n</code> disks in a neat stack in ascending order of size on
+a <code>start</code> rod, the smallest at the top, forming a conical shape.</p>
+
+<p><img class="img-responsive center-block" src="../../../upload.wikimedia.org/wikipedia/commons/0/07/Tower_of_Hanoi.jpg" alt="Towers of Hanoi"></p>
+
+<p>The objective of the puzzle is to move the entire stack to an <code>end</code> rod,
+obeying the following rules:</p>
+
+<ul>
+  <li>Only one disk may be moved at a time.</li>
+  <li>Each move consists of taking the top (smallest) disk from one of the rods and
+  sliding it onto another rod, on top of the other disks that may already be
+  present on that rod.</li>
+  <li>No disk may be placed on top of a smaller disk.</li>
+</ul>
+
+<p>Complete the definition of <code>move_stack</code>, which prints out the steps required to
+move <code>n</code> disks from the <code>start</code> rod to the <code>end</code> rod without violating the
+rules. The provided <code>print_move</code> function will print out the step to move a
+single disk from the given <code>origin</code> to the given <code>destination</code>.</p>
+
+<blockquote><p><em>Hint:</em> Draw out a few games with various <code>n</code> on a piece of paper and try to
+find a pattern of disk movements that applies to any <code>n</code>. In your solution,
+take the recursive leap of faith whenever you need to move any amount of
+disks less than <code>n</code> from one rod to another. If you need more help, see
+the following hints.</p></blockquote>
+
+
+        <button id='toggle-1' class='btn btn-outline btn-lg alwaystoggle toggle'>
+        Hint 1<noscript> (enable JavaScript)</noscript>
+        </button>
+        <div class="solution toggle-1">
+See the following animation of the Towers of Hanoi, found on <a href="../../../commons.wikimedia.org/wiki/File_Iterative_algorithm_solving_a_6_disks_Tower_of_Hanoi.html">Wikimedia</a> by user <a href="https://commons.wikimedia.org/wiki/User:Trixx">Trixx</a>
+
+<img class="img-responsive center-block" src="../../../upload.wikimedia.org/wikipedia/commons/8/8d/Iterative_algorithm_solving_a_6_disks_Tower_of_Hanoi.gif"/>
+</div>
+<br>
+
+        <button id='toggle-2' class='btn btn-outline btn-lg alwaystoggle toggle'>
+        Hint 2<noscript> (enable JavaScript)</noscript>
+        </button>
+        <div class="solution toggle-2">
+The strategy used in Towers of Hanoi is to move all but the bottom disc to the second peg, then moving the bottom disc to the third peg, then moving all but the second disc from the second to the third peg.
+</div>
+<br>
+
+        <button id='toggle-3' class='btn btn-outline btn-lg alwaystoggle toggle'>
+        Hint 3<noscript> (enable JavaScript)</noscript>
+        </button>
+        <div class="solution toggle-3">
+One thing you don't need to worry about is collecting all the steps. <code>print</code> effectively "collects" all the results in the terminal as long as you make sure that the moves are printed in order.
+</div>
+
+<solution>
+
+<pre><code>def print_move(origin, destination):
+    &quot;&quot;&quot;Print instructions to move a disk.&quot;&quot;&quot;
+    print(&quot;Move the top disk from rod&quot;, origin, &quot;to rod&quot;, destination)
+
+def move_stack(n, start, end):
+    &quot;&quot;&quot;Print the moves required to move n disks on the start pole to the end
+    pole without violating the rules of Towers of Hanoi.
+
+    n &#x2d;&#x2d; number of disks
+    start &#x2d;&#x2d; a pole position, either 1, 2, or 3
+    end &#x2d;&#x2d; a pole position, either 1, 2, or 3
+
+    There are exactly three poles, and start and end must be different. Assume
+    that the start pole has at least n disks of increasing size, and the end
+    pole is either empty or has a top disk larger than the top n start disks.
+
+    &gt;&gt;&gt; move_stack(1, 1, 3)
+    Move the top disk from rod 1 to rod 3
+    &gt;&gt;&gt; move_stack(2, 1, 3)
+    Move the top disk from rod 1 to rod 2
+    Move the top disk from rod 1 to rod 3
+    Move the top disk from rod 2 to rod 3
+    &gt;&gt;&gt; move_stack(3, 1, 3)
+    Move the top disk from rod 1 to rod 3
+    Move the top disk from rod 1 to rod 2
+    Move the top disk from rod 3 to rod 2
+    Move the top disk from rod 1 to rod 3
+    Move the top disk from rod 2 to rod 1
+    Move the top disk from rod 2 to rod 3
+    Move the top disk from rod 1 to rod 3
+    &quot;&quot;&quot;
+    assert 1 &lt;= start &lt;= 3 and 1 &lt;= end &lt;= 3 and start != end, &quot;Bad start/end&quot;
+<div class="sol-highlight">    if n == 1:
+        print_move(start, end)
+    else:
+        other = 6 &#x2d; start &#x2d; end
+        move_stack(n&#x2d;1, start, other)
+        print_move(start, end)
+        move_stack(n&#x2d;1, other, end)</div></code></pre>
+
+</solution>
+
+<p>Use Ok to test your code:</p><pre><code class="nohighlight">python3 ok -q move_stack</code></pre>
+
+<div class="sol-highlight">
+
+<p>To solve the Towers of Hanoi problem for <code>n</code> disks, we need to do three
+steps:</p>
+
+<ol>
+  <li>Move everything but the last disk (<code>n&#x2d;1</code> disks) to someplace in the
+  middle (not the start nor the end rod).</li>
+  <li>Move the last disk (a single disk) to the end rod. This must occur
+  after step 1 (we have to move everything above it away first)!</li>
+  <li>Move everything but the last disk (the disks from step 1) from the
+  middle on top of the end rod.</li>
+</ol>
+
+<p>We take advantage of the fact that the recursive function <code>move_stack</code> is
+guaranteed to move <code>n</code> disks from <code>start</code> to <code>end</code> while obeying the rules
+of Towers of Hanoi. The only thing that remains is to make sure that we
+have set up the playing board to make that possible.</p>
+
+<p>Since we move a disk to end rod, we run the risk of <code>move_stack</code> doing an
+improper move (big disk on top of small disk). But since we're moving the
+biggest disk possible, nothing in the <code>n&#x2d;1</code> disks above that is bigger.
+Therefore, even though we do not explicitly state the Towers of Hanoi
+constraints, we can still carry out the correct steps.</p>
+
+<p>Video walkthrough: <a href="https://youtu.be/VwynGQiCTFM">https://youtu.be/VwynGQiCTFM</a></p>
+
+</div>
+<h3 class="question" id="q6">Q6: Anonymous factorial</h3>
+
+<p>The recursive factorial function can be written as a single expression
+by using a <a href="http://docs.python.org/py3k/reference/expressions.html#conditional-expressions">conditional expression</a>.</p>
+
+<pre><code>&gt;&gt;&gt; fact = lambda n: 1 if n == 1 else mul(n, fact(sub(n, 1)))
+&gt;&gt;&gt; fact(5)
+120</code></pre>
+
+<p>However, this implementation relies on the fact (no pun intended) that
+<code>fact</code> has a name, to which we refer in the body of <code>fact</code>.  To write a
+recursive function, we have always given it a name using a <code>def</code> or
+assignment statement so that we can refer to the function within its
+own body.  In this question, your job is to define fact recursively
+without giving it a name!</p>
+
+<p>Write an expression that computes <code>n</code> factorial using only call
+expressions, conditional expressions, and lambda expressions (no
+assignment or def statements).  <em>Note in particular that you are not
+allowed to use <code>make_anonymous_factorial</code> in your return expression.</em>
+The <code>sub</code> and <code>mul</code> functions from the <code>operator</code> module are the only
+built-in functions required to solve this problem:</p>
+
+<solution>
+
+<pre><code>from operator import sub, mul
+
+def make_anonymous_factorial():
+    &quot;&quot;&quot;Return the value of an expression that computes factorial.
+
+    &gt;&gt;&gt; make_anonymous_factorial()(5)
+    120
+    &gt;&gt;&gt; from construct_check import check
+    &gt;&gt;&gt; # ban any assignments or recursion
+    &gt;&gt;&gt; check(HW_SOURCE_FILE, &#x27;make_anonymous_factorial&#x27;, [&#x27;Assign&#x27;, &#x27;AugAssign&#x27;, &#x27;FunctionDef&#x27;, &#x27;Recursion&#x27;])
+    True
+    &quot;&quot;&quot;
+<div class="sol-highlight">    return (lambda f: lambda k: f(f, k))(lambda f, k: k if k == 1 else mul(k, f(f, sub(k, 1))))
+    # Alternate solution:
+    #   return (lambda f: f(f))(lambda f: lambda x: 1 if x == 0 else x * f(f)(x &#x2d; 1))</div></code></pre>
+
+</solution>
+
+<p>Use Ok to test your code:</p><pre><code class="nohighlight">python3 ok -q make_anonymous_factorial</code></pre>
+
+  </div>
+
+  <div class='col-md-3 sticky'>
+    <nav class='hidden-print hidden-sm hidden-xs sidebar'>
+      <ul>
+  <li><a href="#required-questions">Required questions</a></li>
+  <ul>
+    <li><a href="#q1">Q1: Num Sevens</a></li>
+    <li><a href="#q2">Q2: Ping-pong</a></li>
+    <li><a href="#q3">Q3: Count change</a></li>
+  </ul>
+  <li><a href="#optional-list-question">Optional List Question</a></li>
+  <ul>
+    <li><a href="#q4">Q4: Flatten</a></li>
+  </ul>
+  <li><a href="#just-for-fun-questions">Just for Fun Questions</a></li>
+  <ul>
+    <li><a href="#q5">Q5: Towers of Hanoi</a></li>
+    <li><a href="#q6">Q6: Anonymous factorial</a></li>
+  </ul>
+</ul>
+    </nav>
+  </div>
+</div>
+
+    </main>
+
+    <footer class="container">
+      <div class="row text-center">
+        <div class="col col-sm-4">
+          <h3><a href="../../index.html">CS 61A</a></h3>
+          <ul class="nav nav-pills nav-stacked">
+            <li><a href="../../weekly.html">Weekly Schedule</a></li>
+            <li><a href="../../office-hours.html">Office Hours</a></li>
+            <li><a href="../../staff.html">Staff</a></li>
+          </ul>
+        </div>
+        <div class="col col-sm-4">
+          <h3><a href="../../resources.html">Resources</a></h3>
+          <ul class="nav nav-pills nav-stacked">
+            <li><a href="../../articles/studying.html">Studying Guide</a></li>
+            <li><a href="../../articles/debugging.html">Debugging Guide</a></li>
+            <li><a href="../../articles/composition.html">Composition Guide</a></li>
+          </ul>
+        </div>
+        <div class="col col-sm-4">
+          <h3><a href="../../articles/about.html">Policies</a></h3>
+          <ul class="nav nav-pills nav-stacked">
+            <li><a href="../../articles/about.html#assignments">Assignments</a></li>
+            <li><a href="../../articles/about.html#exams">Exams</a></li>
+            <li><a href="../../articles/about.html#grading">Grading</a></li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+
+    
+
+<script>
+  $('.sidebar ul').addClass('nav nav-stacked noselect');
+  $('body').scrollspy({
+    target: '.sidebar',
+    offset: 40
+  });
+
+  function goToId(id) {
+    var target = $(id);
+    console.log(target);
+    target.parent().show();
+    $('html,body').animate({
+      scrollTop: target.offset().top,
+    }, 100);
+    $("body").scrollspy('refresh');
+  }
+
+  if (location.hash) {
+    setTimeout(function() {
+      // window.scrollTo(0, 0);
+      if (location.hash) {
+        goToId(location.hash);
+      }
+    }, 1);
+  }
+
+  $("a").click(function(event) {
+    event.preventDefault();
+    var urlBeforeHashRegEx = new RegExp("^"+window.location.href.split("#")[0]);
+    if (/^#/.test(this.hash) && urlBeforeHashRegEx.test(this.href)) {
+      goToId(this.hash);
+      document.location.hash = this.hash;
+    } else {
+      window.open(this.href);
+    }
+  });
+</script>
+
+  </body>
+
+<!-- Mirrored from cs61a.org/hw/sol-hw03/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 05 Jan 2020 19:29:08 GMT -->
+</html>
